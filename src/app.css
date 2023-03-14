@@ -1,0 +1,11 @@
+*::after, *::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #1a1a11;
+  color: white;
+  font-family: 'Inconsolata', 'Courier New', Courier, monospace;
+}
