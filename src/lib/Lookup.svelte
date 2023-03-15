@@ -2,10 +2,18 @@
     import { data } from "./store";
     let lookup: string;
 
-    function searchData() {
-        data.set({
-            'location': lookup
-        })
+    async function searchData() {
+        const locationDataRequest = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${lookup}&appid=02e0f4ce235688ed1098924f8da9fdb3`)
+        let locationData = await locationDataRequest.json()
+        if (!locationData[0]) {
+            return data.set({
+                status: 0,
+                message: 'We could not find the weather information in your area, check for mispellings, typos, and other gramatical mistakes and try again, maybe try to use other ways of the location as well.'
+            })
+        }
+        const weatherDataRequest = await fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${locationData[0].lat}&lon=${locationData[0].lon}&appid=02e0f4ce235688ed1098924f8da9fdb3&units=metric`)
+        let weatherData = await weatherDataRequest.json()
+        data.set({ status: 1, message: 'Weather data fetched successfully', data: weatherData })
     }
 </script>
 

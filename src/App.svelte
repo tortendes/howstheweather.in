@@ -1,15 +1,19 @@
 <script lang="ts">
   import Lookup from './lib/Lookup.svelte'
   import { data } from './lib/store';
+  import WeatherData from './lib/WeatherData.svelte';
 
-  let weatherData;
+  let weather;
 
   data.subscribe(val => {
-    weatherData = val
+    weather = val
   })
 </script>
 
 <main>
-  <Lookup />
-  {JSON.stringify($data)}
+  {#if weather}
+    <WeatherData result={$data} />
+    {:else}
+      <Lookup />
+  {/if}
 </main>
