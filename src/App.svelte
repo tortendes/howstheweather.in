@@ -1,19 +1,7 @@
 <script lang="ts">
-  import Lookup from './lib/Lookup.svelte'
-  import { data } from './lib/store';
-  import WeatherData from './lib/WeatherData.svelte';
-
-  let weather;
-
-  data.subscribe(val => {
-    weather = val
-  })
+  import slot from 'svelte'
 </script>
 
 <main>
-  {#if weather}
-    <WeatherData result={$data} />
-    {:else}
-      <Lookup />
-  {/if}
+  <slot />
 </main>
